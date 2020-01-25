@@ -1,3 +1,8 @@
+'''
+Trie Implementation
+'''
+
+# Trie node class
 class TrieNode:
 
     def __init__(self, numChildren):
@@ -5,11 +10,12 @@ class TrieNode:
         self.isEndOfWord = False
         self.activeChildCount = 0
 
+# Trie class
 class Trie:
 
     def __init__(self, maxChildren):
         self.maxChildren = maxChildren
-        self.root = TrieNode(maxChildren)        
+        self.root = TrieNode(maxChildren)
 
     def getRoot(self):
         return self.root
@@ -58,7 +64,7 @@ class Trie:
                 tup[0].activeChildCount -= 1
             cn = tup[0]
             i += 1
-        
+
         return True
 
     def dfsTrie(self, node):
@@ -68,11 +74,15 @@ class Trie:
                 idx += 1
                 continue
             val = chr(idx + ord('a'))
-            print("Node:{} activeChildCount:{} isEndOfWord:{}".format(val, child.activeChildCount, child.isEndOfWord))
+            print("Node:{} activeChildCount:{} isEndOfWord:{}".\
+                  format(val, child.activeChildCount, child.isEndOfWord))
             self.dfsTrie(child)
             idx += 1
 
-# Test
+'''
+Test Code
+'''
+
 T = Trie(26)
 words = ["man", "mani", "manila", "mankind"]
 for w in words:
