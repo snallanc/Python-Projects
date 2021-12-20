@@ -16,14 +16,12 @@ class Bst:
 
     def _sanity_check_failed(self):
         if not self.root:
-            print("Tree is not initialized yet!")
+            print("\t\tTree is not initialized yet!")
             return True
         return False
 
-    def _get_successor_node(self, node):
-        '''
-        Successor will be the right most node of the left subtree of the given node
-        '''
+    def _getSuccessorNode(self, node):
+        """ Successor will be the right most node of the left subtree of the given node. It is always a leaf node """
         if not node or not node.left:
             return None
         pn = node
@@ -35,47 +33,57 @@ class Bst:
         return sn
 
     def _searchKey(self, key):
-        if self._sanity_check_failed():
-            return
+        """ Searches for the given key; if found returns True and sets the node and parent objects. """
+
         pn, cn = None, self.root
         while cn:
             if key == cn.key:
-                print("Node {} with search key {} found!".format(cn, key))
-                return cn, pn
+                print("\t\tNode {} with search key {} found!".format(cn, key))
+                return True, cn, pn
             elif key < cn.key:
                 pn = cn
                 cn = cn.left
             else:
                 pn = cn
                 cn = cn.right
-        print("Node {} with search key {} is not found!".format(cn, key))
-        return None, None
+        print("\t\tNode with search key {} is not found!".format(key))
+        return False, None, None
 
     def getRoot(self):
         return self.root
 
     def getSmallest(self):
+        """ Rightmost node is the node with the smallest key. """
         if self._sanity_check_failed():
-            return
+            return None
+
         cn = self.root
         while cn.left:
             cn = cn.left
-        print("Node {} with the smallest key {}".format(cn, cn.key))
+        print("\t\tNode {} with the smallest key {}".format(cn, cn.key))
         return cn
 
     def getLargest(self):
+        """ Rightmost node is the node with the largest key. """
         if self._sanity_check_failed():
-            return
+            return None
         cn = self.root
         while cn.right:
             cn = cn.right
-        print("Node {} with the largest key {}".format(cn, cn.key))
+        print("\t\tNode {} with the largest key {}".format(cn, cn.key))
         return cn
 
     def insert(self, key):
         if self._sanity_check_failed():
             return
-        print("Insert a node with key {}".format(key))
+
+        # If the node already exists, just return
+        ret, cn, pn = self._searchKey(key)
+        if ret:
+            print("\tNode {} with search key {} already exists!".format(cn, key))
+            return
+
+        print("\t\tInsert a node with key {}".format(key))
         cn = self.root        
         nn = BstNode(key)
         while cn and cn.left and cn.right:
@@ -93,65 +101,76 @@ class Bst:
                 nn.right = tmpn
 
     def search(self, key):
-        return self._searchKey(key)[0]
-        
+        if self._sanity_check_failed():
+            return False
+
+        ret, node, parent = self._searchKey(key)
+        return ret
+
     def delete(self, key):
         if self._sanity_check_failed():
             return
         
         pn, cn = None, self.root
         delRoot = True if cn.key == key else False
-        print("Delete a node with key {} root node? {}".format(key, delRoot))
+        print("\t\tDelete a node with key {}. Root node? {}".format(key, delRoot))
         '''
         Possibilities:
         1. root node or any node with left and right subtrees is deleted
-           - Find the successor to occupy the place of deleted node
+           - Find the successor to occupy the place of the deleted node
            - Detach the successor from its parent
            - Set the left, right pointers of the successor
            - If the root is deleted, set the successor as the new root
         2. leaf node gets deleted
-           - left/right of the parent can be set to None
+           - Corresponding left/right child of the parent should be set to None 
         '''
         
         if not delRoot:
-            cn, pn = self._searchKey(key)
-                
-        if not cn:
-            print("Node with key {} doesn't exist".format(key))
+            ret, cn, pn = self._searchKey(key)
+
+        if cn is None:
             return
-        print("Node {} with key {} to be deleted is found".format(cn, key))
 
         # Find the successor
-        sn = self._get_successor_node(cn)
+        sn = self._getSuccessorNode(cn)
         
         # Update the pointer of the parent node to point to the successor node
-        if pn:
+        if pn is not None:
             if pn.left == cn:
                 pn.left = sn
             else:
                 pn.right = sn
 
         # Set the pointers of the successor node
-        if sn:
-            print("Successor node {} with key {}".format(sn, sn.key))
+        if sn is not None:
+            print("\t\tSuccessor node {} with key {}".format(sn, sn.key))
             sn.left = cn.left if sn != cn.left else None
             sn.right = cn.right
 
         # Update root
         if delRoot:
-            sn.left, sn.right = self.root.left, self.root.right
             self.root = sn
 
-    # Inorder traversal prints the keys in sorted order
+        del cn
+
+    # Inorder traversal wrapper function
     def inOrderTraversal(self, node):
+        _divider()
+        print("Inorder traversal:")
+        self._inOrderTraversal(node);
+        _divider()
+
+    # Inorder traversal prints the keys in sorted order
+    def _inOrderTraversal(self, node):
         if not node:
             return
         if node.left:
-            self.inOrderTraversal(node.left)
+            self._inOrderTraversal(node.left)
         print("{}".format(node.key))
         if node.right:
-            self.inOrderTraversal(node.right)
+            self._inOrderTraversal(node.right)
 
+    # Pre-order traversal prints the keys in the order of current node and then its left and right children
     def preOrderTraversal(self, node):
         if not node:
             return
@@ -161,6 +180,7 @@ class Bst:
         if node.right:
             self.preOrderTraversal(node.right)
 
+    # Post order traversal prints the keys in the order of left, right children and then the current node
     def postOrderTraversal(self, node):
         if not node:
             return
@@ -174,28 +194,33 @@ class Bst:
 '''
 Test code
 '''
+def _divider():
+    print("\n====================================\n")
+
 def _testInsert(bst):
+    print("Inserting Nodes:")
     nodes = [50, 150, 25, 75, 125, 175, 15, 35, 65, 85, 115, 135, 165, 185]
     for n in nodes:
         bst.insert(n)
     bst.getSmallest()
     bst.getLargest()
     bst.inOrderTraversal(bst.getRoot())
-    print("")
 
 def _testSearch(bst):
     snodes = [150, 45, 65, 95, 175]
+    print("Searching Nodes:")
     for n in snodes:
         bst.search(n)
+    _divider()
 
 def _testDelete(bst):
-    dnodes = [50, 15, 100, 125, 185]
+    dnodes = [50, 150, 25, 75, 125, 175, 15, 35, 65, 85, 115, 135, 165, 185, 100]
+    print("Deleting Nodes:")
     for n in dnodes:
         bst.delete(n)
         bst.getSmallest()
         bst.getLargest()
         bst.inOrderTraversal(bst.getRoot())
-        print("")
 
 bst = Bst(100)
 _testInsert(bst)
