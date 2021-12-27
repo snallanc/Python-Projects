@@ -1,5 +1,5 @@
 """
-Compute power(x, y) where x is double and y is an integer(positive or negative).
+EPI Problem 4.7: Compute power(x, y) where x is double and y is an integer(positive or negative).
 Obviously, don't use python's power operator x**y :)
 """
 
@@ -13,6 +13,12 @@ Use recursion with memoization to compute power(x, y) for one branch and cache t
 the other branch.
 """
 cache = {}
+def adjust_base_exp(x, y):
+    x2, y2 = x, y
+    if y < 0:
+        x2, y2 = 1 / x, -y
+    return x2, y2
+
 def power_recursive(x, y):
     result = 0
     if y == 0:
@@ -24,9 +30,9 @@ def power_recursive(x, y):
         return cache[(x, y)]
     # print("\tpow({0},{1}) not in cache, computing".format(x, y))
     if ((y % 2) == 0):
-        result = power_recursive(x, int(y/2)) * power_recursive(x, int(y/2))
+        result = power_recursive(x, y//2) * power_recursive(x, y//2)
     else:
-        result = power_recursive(x, int(y/2)) * power_recursive(x, int(y/2)) * x
+        result = power_recursive(x, y//2) * power_recursive(x, y//2) * x
     cache[(x, y)] = result
     return result
 
@@ -41,21 +47,17 @@ def power_iterative(x, y):
         x, y = x*x, y>>1
     return result
 
-def compute_power(x, y):
-    x2, y2 = x, y
-    if y < 0:
-        x2, y2 = 1/x, -y
-    result1 = power_recursive(x2, y2)
-    result2 = power_iterative(x2, y2)
-    print("Power({0},{1}) using recursion is {2}".format(x, y, result1))
-    print("Power({0},{1}) using iteration is {2}\n###############################".format(x, y, result2))
-
 
 """
 Test code
 """
-compute_power(2, 30)
-compute_power(3.2, 20)
-compute_power(5, -10)
-compute_power(10.5, -4)
-print("Cache entries used by recursion are {0}".format(cache))
+input_list = [(2, 30), (3.2, 20), (5, -10), (10.5, -4)]
+result_list = [2**30, 3.2**20, 5**-10, 10.5**-4]
+for i, r in zip(input_list, result_list):
+    x, y = i[0], i[1]
+    x2, y2 = adjust_base_exp(x, y)
+    result1 = power_recursive(x2, y2)
+    result2 = power_iterative(x2, y2)
+    print("Power({0},{1}) using recursion:{2}, using iteration:{3}, expected result:{4}\n##############################".\
+          format(x, y, result1, result2, r))
+print("\nCache entries used by recursion:\n{0}".format(cache))
