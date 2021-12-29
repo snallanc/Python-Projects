@@ -16,8 +16,9 @@ def swap_bits(x, i, j):
 
 """
 Test Code
-
-swap_bits(75, 1, 2)
-swap_bits(75, 0, 1)
-swap_bits(75, 2, 6)
 """
+
+if __name__ == '__main__':
+    swap_bits(75, 1, 2)
+    swap_bits(75, 0, 1)
+    swap_bits(75, 2, 6)

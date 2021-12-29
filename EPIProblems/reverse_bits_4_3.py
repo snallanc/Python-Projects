@@ -4,7 +4,7 @@ EPI Problem 4.3: Rearrange the bits of a 64-bit integer such that the bits appea
 Eg. 11001010 => 01010011
 """
 
-from swap_bits_4_2 import *
+from swap_bits_4_2 import swap_bits
 
 """
 This uses the logic of swap_bits to reverse a number by incrementally swapping bit positions from the ends to the middle.
