@@ -11,6 +11,7 @@ Solution 1: Re-arrange in 2 passes:
 Complexity: O(n^2)
 """
 
+import copy
 def partition_numbers(A, pivot_idx, preserve_sorting=False):
     pivot = A[pivot_idx]
     # Pass 1: numbers < pivot move to the left end
@@ -34,6 +35,51 @@ def partition_numbers(A, pivot_idx, preserve_sorting=False):
                 A[i], A[j] = A[j], A[i]
                 # Pos i is now taken, so break here to bump i and proceed
                 break
+    return A
+
+"""
+Solution 2: Re-arrange in 2 passes but in each pass just walk over the list of numbers once without using a nested loop.
+Complexity: O(n)
+"""
+def partition_numbers_linear_2pass(A, pivot_idx):
+    i = 0
+    pivot = A[pivot_idx]
+    # Pass 1
+    for j in range(len(A)):
+        if A[j] < pivot:
+            A[i], A[j] = A[j], A[i]
+            i += 1
+    # Pass 2
+    i, j = len(A) - 1, len(A) - 1
+    while A[j] >= pivot:
+        if A[j] > pivot:
+            A[i], A[j] = A[j], A[i]
+            i -= 1
+        j -= 1
+    return A
+
+"""
+Solution 3: Similar to solution 2 but rearrange in one pass.
+Complexity: O(n)
+"""
+def partition_numbers_linear_1pass(A, pivot_idx):
+    """
+    i -> tracks indices for nos < pivot
+    j -> tracks indices for nos > pivot
+    k -> tracks the index of the current number
+    """
+    i, j, k = 0, len(A)-1, 0
+    pivot = A[pivot_idx]
+    while k <= j:
+        if A[k] < pivot:
+            A[i], A[k] = A[k], A[i]
+            i, k = i + 1, k + 1
+        elif A[k] > pivot:
+            A[j], A[k] = A[k], A[j]
+            j -= 1
+        else:
+            k += 1
+    return A
 
 """
 Test code
@@ -50,5 +96,9 @@ if __name__ == '__main__':
     for t in input_list:
         l, pidx, preserve_sorting = t
         print("List before rearrangement:\n\t{0}, pivot:{1}, preserve sort order? {2}".format(l, l[pidx], preserve_sorting))
-        partition_numbers(l, pidx, preserve_sorting)
-        print("Lists after rearrangement:\n\t{0}\n##################################\n".format(l))
+        res1 = partition_numbers(copy.deepcopy(l), pidx, preserve_sorting)
+        res2 = partition_numbers_linear_2pass(copy.deepcopy(l), pidx)
+        res3 = partition_numbers_linear_1pass(copy.deepcopy(l), pidx)
+        print("List after rearrangement(sol1):\n\t{0}".format(res1))
+        print("List after rearrangement(sol2):\n\t{0}".format(res2))
+        print("List after rearrangement(sol3):\n\t{0}\n\n##################################\n".format(res3))
