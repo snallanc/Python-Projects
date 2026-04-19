@@ -62,15 +62,19 @@ class Trie:
             # This end of word node has children, so it should not be unlinked from its ancestors
             return True
 
-        # We have the word and its path, now backtrack the path and delete the word
+        # We have the word, its path with no children, now backtrack the path and delete the word
         i, pathLen, = 0, len(path)
         while i < pathLen:
             parent, c = path.pop()
 
             # cn: current node, parent: its parent
 
-            # If cn has no children and is not the end of word, unlink the node from its parent. Else bail out.
-            # Else, no further processing is required
+            # Unlink cn from its parent only if BOTH conditions hold:
+            #   1. cn has no children — it is a leaf and safe to remove.
+            #   2. cn is not the end of another valid word (isEndOfWord is False) —
+            #      if it were, cn is a shared prefix node (e.g. "man" while deleting
+            #      "mankind") and must be kept intact so that prefix word remains searchable.
+            # If either condition fails, stop backtracking immediately.
             if not cn.children.__len__() and not cn.isEndOfWord:
                 del parent.children[c]
             else:
@@ -88,6 +92,16 @@ class Trie:
             print("\tNode:{0} numChildren:{1} isEndOfWord:{2}".format(char, child.children.__len__(), child.isEndOfWord))
             self.dfsTrie(child)
 
+    def findWordsWithPrefix(self, prefix):
+        cn = self.root
+        for c in prefix:
+            if c not in cn.children:
+                return []
+            cn = cn.children[c]
+
+        if cn is not None:
+            self.dfsTrie(cn)
+
 '''
 Test Code
 '''
@@ -96,7 +110,7 @@ def divider():
     print("\n===========================================\n")
 
 T = Trie(26)
-words = ["man", "mannerism", "manila", "mankind", "man", "manhattan"]
+words = ["man", "mannerism", "manila", "mankind", "man", "manhattan", "manick"]
 print("Insert words:")
 for w in words:
     print("\tWord to insert: \"{0}\"".format(w))
@@ -108,13 +122,17 @@ T.dfsTrie(T.getRoot())
 divider()
 
 print("Search nodes:")
-words = ["man", "manner", "manil", "manila", "mankind", "man-hattan"]
+words = ["man", "manner", "manil", "manila", "mankind", "man-hattan", "manick"]
 for w in words:
     print("\tWord \"{0}\" exists in trie: {1}".format(w, T.search(w)))
 divider()
 
+print("Find words with prefix 'mani':")
+T.findWordsWithPrefix("mani")
+divider()
+
 print("Delete nodes:")
-words = ["mankind", "mani", "manila", "mankind", "man", "manhattan", "mannerism"]
+words = ["mankind", "mani", "manila", "mankind", "man", "manhattan", "mannerism", "manick"]
 for w in words:
     res = T.delete(w)
     print("\tWord \"{0}\" is deleted from trie: {1}".format(w, res))
