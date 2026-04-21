@@ -1,6 +1,10 @@
 '''
 Binary Search Tree Implementation
 '''
+import sys
+import os
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'traversals'))
+from tree_traversals import inorder_traversal, preorder_traversal, postorder_traversal
 
 # Binary Search Tree Node
 class BstNode:
@@ -24,8 +28,7 @@ class Bst:
         """ Successor will be the right most node of the left subtree of the given node. It is always a leaf node """
         if not node or not node.left:
             return None
-        pn = node
-        sn = node.left
+        pn, sn = node, node.left
         while sn.right:
             pn, sn = sn, sn.right
         if pn != node:
@@ -53,7 +56,7 @@ class Bst:
         return self.root
 
     def getSmallest(self):
-        """ Rightmost node is the node with the smallest key. """
+        """ Leftmost node is the node with the smallest key. """
         if self._sanity_check_failed():
             return None
 
@@ -84,21 +87,19 @@ class Bst:
             return
 
         print("\t\tInsert a node with key {}".format(key))
-        cn = self.root        
+        cn = self.root
         nn = BstNode(key)
-        while cn and cn.left and cn.right:
+        while cn:
             if key <= cn.key:
+                if cn.left is None:
+                    cn.left = nn
+                    return
                 cn = cn.left
             else:
+                if cn.right is None:
+                    cn.right = nn
+                    return
                 cn = cn.right
-        if key <= cn.key:
-                tmpn = cn.left
-                cn.left = nn
-                nn.left = tmpn
-        else:
-                tmpn = cn.right
-                cn.right = nn
-                nn.right = tmpn
 
     def search(self, key):
         if self._sanity_check_failed():
@@ -118,7 +119,7 @@ class Bst:
         Possibilities:
         1. root node or any node with left and right subtrees is deleted
            - Find the successor to occupy the place of the deleted node
-           - Detach the successor from its parent
+           - Detach the successor from its current parent and attach it to the parent of the deleted node
            - Set the left, right pointers of the successor
            - If the root is deleted, set the successor as the new root
         2. leaf node gets deleted
@@ -127,11 +128,11 @@ class Bst:
         
         if not delRoot:
             ret, cn, pn = self._searchKey(key)
-
-        if cn is None:
-            return
+            if not ret:
+                return
 
         # Find the successor
+        assert cn is not None, "Node to be deleted should not be None"
         sn = self._getSuccessorNode(cn)
         
         # Update the pointer of the parent node to point to the successor node
@@ -157,38 +158,16 @@ class Bst:
     def inOrderTraversal(self, node):
         _divider()
         print("Inorder traversal:")
-        self._inOrderTraversal(node);
+        inorder_traversal(node)
         _divider()
-
-    # Inorder traversal prints the keys in sorted order
-    def _inOrderTraversal(self, node):
-        if not node:
-            return
-        if node.left:
-            self._inOrderTraversal(node.left)
-        print("{}".format(node.key))
-        if node.right:
-            self._inOrderTraversal(node.right)
 
     # Pre-order traversal prints the keys in the order of current node and then its left and right children
     def preOrderTraversal(self, node):
-        if not node:
-            return
-        print("{}".format(node.key))
-        if node.left:
-            self.preOrderTraversal(node.left)
-        if node.right:
-            self.preOrderTraversal(node.right)
+        preorder_traversal(node)
 
     # Post order traversal prints the keys in the order of left, right children and then the current node
     def postOrderTraversal(self, node):
-        if not node:
-            return
-        if node.left:
-            self.postOrderTraversal(node.left)
-        if node.right:
-            self.postOrderTraversal(node.right)
-        print("{}".format(node.key))
+        postorder_traversal(node)
 
 
 '''
@@ -204,7 +183,9 @@ def _testInsert(bst):
         bst.insert(n)
     bst.getSmallest()
     bst.getLargest()
-    bst.inOrderTraversal(bst.getRoot())
+    r = bst.getRoot()
+    print("Inorder Traversal with root node {} after insertion:".format(r.key))    
+    bst.inOrderTraversal(r)
 
 def _testSearch(bst):
     snodes = [150, 45, 65, 95, 175]
@@ -214,13 +195,15 @@ def _testSearch(bst):
     _divider()
 
 def _testDelete(bst):
-    dnodes = [50, 150, 25, 75, 125, 175, 15, 35, 65, 85, 115, 135, 165, 185, 100]
+    dnodes = [50, 150, 25, 75, 125, 175, 15, 100, 65, 85, 115, 135, 165, 185, 35]
     print("Deleting Nodes:")
     for n in dnodes:
         bst.delete(n)
         bst.getSmallest()
         bst.getLargest()
-        bst.inOrderTraversal(bst.getRoot())
+        r = bst.getRoot()
+        print("Inorder Traversal with root node {} after deletion:".format(r.key if r else None))
+        bst.inOrderTraversal(r)
 
 bst = Bst(100)
 _testInsert(bst)

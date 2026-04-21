@@ -1,6 +1,6 @@
 class TreeNode:
-    def __init__(self, val=0, left=None, right=None):
-        self.val = val
+    def __init__(self, key=0, left=None, right=None):
+        self.key = key
         self.left = left
         self.right = right
 
@@ -10,8 +10,8 @@ class TreeNode:
     def get_right(self):
         return self.right
 
-    def get_val(self):
-        return self.val
+    def get_key(self):
+        return self.key
 
     def set_left(self, left):
         self.left = left
@@ -19,5 +19,5 @@ class TreeNode:
     def set_right(self, right):
         self.right = right
 
-    def set_val(self, val):
-        self.val = val
+    def set_key(self, key):
+        self.key = key

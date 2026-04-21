@@ -6,7 +6,7 @@ from tree_node import TreeNode
 def depth_first_search(node, target):
     if node is None:
         return False
-    if node.val == target:
+    if node.key == target:
         return True
     return depth_first_search(node.left, target) or depth_first_search(node.right, target)
 

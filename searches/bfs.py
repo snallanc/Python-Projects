@@ -12,7 +12,7 @@ def breadth_first_search(node, target):
 
     while queue:
         current_node = queue.popleft()
-        if current_node.val == target:
+        if current_node.key == target:
             return True
         if current_node.left is not None:
             queue.append(current_node.left)

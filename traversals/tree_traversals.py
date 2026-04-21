@@ -7,13 +7,13 @@ def inorder_traversal(root):
     if not root:
         return []
     inorder_traversal(root.left)
-    print(f"Visiting node with value: {root.val}")
+    print(f"Visiting node with key: {root.key}")
     inorder_traversal(root.right)
 
 def preorder_traversal(root):
     if not root:
         return []
-    print(f"Visiting node with value: {root.val}")
+    print(f"Visiting node with key: {root.key}")
     preorder_traversal(root.left)
     preorder_traversal(root.right)
 
@@ -22,7 +22,7 @@ def postorder_traversal(root):
         return []
     postorder_traversal(root.left)
     postorder_traversal(root.right)
-    print(f"Visiting node with value: {root.val}")
+    print(f"Visiting node with key: {root.key}")
 
 if __name__ == "__main__":
     # Constructing a sample binary tree:
