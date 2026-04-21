@@ -1,2 +1,2 @@
 # Python-Projects
-This repo has data structures and coding examples implemented in Python
+This repo has data structures, algorithms and coding examples implemented in Python
