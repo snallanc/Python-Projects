@@ -49,10 +49,10 @@ def quick_sort_optimised(arr):
 
 if __name__ == "__main__":
     import copy
-    arr_list = [[3, 1, 4, 1, 5, 9, 2, 6], [1, 2, 3, 4, 5], [5, 4, 3, 2, 1], [], [1]]
+    arr_list = [[3, 1, 4, 1, 5, 9, 2, 6], [1, 2, 3, 4, 5], [5, 4, 3, 2, 1], [], [1], [10, 20, 30, 5, 15, 25, 35], [50, 40, 30, 20, 25, 35, 45]]
     for arr in arr_list:
         arr1 = arr.copy()
-        arr2 = arr1.copy()
+        arr2 = arr.copy()
         swaps = quick_sort(arr1)
         swaps_opt = quick_sort_optimised(arr2)
         assert arr1 == arr2, "Sorted arrays do not match!"
