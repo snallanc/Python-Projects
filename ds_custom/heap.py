@@ -60,17 +60,19 @@ class Heap:
     def __len__(self):
         return len(self._data)
 
-def heapify(iterable, comparator):
-    h = Heap(comparator)
-    for v in iterable:
-        h.push(v)
-    return h
+    def heapify(self, iterable):
+        for v in iterable:
+            self.push(v)
 
-def MinHeap(iterable=[]):
-    return heapify(iterable, comparator=lambda a, b: a < b)
+class MinHeap(Heap):
+    def __init__(self, iterable=[]):
+        super().__init__(comparator=lambda a, b: a < b)
+        self.heapify(iterable)
 
-def MaxHeap(iterable=[]):
-    return heapify(iterable, comparator=lambda a, b: a > b)
+class MaxHeap(Heap):
+    def __init__(self, iterable=[]):
+        super().__init__(comparator=lambda a, b: a > b)
+        self.heapify(iterable)
 
 # Test code
 if __name__ == "__main__":

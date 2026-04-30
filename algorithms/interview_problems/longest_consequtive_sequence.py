@@ -23,4 +23,3 @@ sequences = [
 
 for seq in sequences:
     print(f"Longest consecutive sequence length in {seq}: {find_longest_consecutive_sequence(seq)}")
-

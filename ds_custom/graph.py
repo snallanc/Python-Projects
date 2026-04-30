@@ -7,14 +7,14 @@ class Graph:
         self.directed = directed
         self.num_edges = 0
 
-    def add_edge(self, v, adj_v):
-        if adj_v in self.graph[v]:
+    def add_edge(self, v, adj_v, wt=0):
+        if adj_v in [x[0] for x in self.graph[v]]:
             return
-        self.graph[v].append(adj_v)
+        self.graph[v].append((adj_v, wt))
         self.num_edges += 1
-        if self.directed or v in self.graph[adj_v]:
+        if self.directed or v in [x[0] for x in self.graph[adj_v]]:
             return
-        self.graph[adj_v].append(v)
+        self.graph[adj_v].append((v, wt))
         self.num_edges += 1
 
     def print_graph(self):
@@ -25,13 +25,17 @@ class Graph:
             print("Vertex {} -> Adj {}".format(v, adj_v))
 
     def del_edge(self, v, adj_v):
-        if adj_v not in self.graph[v]:
+        edge = next(((n, w) for n, w in self.graph[v] if n == adj_v), None)
+        if edge is None:
             return
-        self.graph[v].remove(adj_v)
+        self.graph[v].remove(edge)
         self.num_edges -= 1
-        if self.directed or v not in self.graph[adj_v]:
+        if self.directed:
             return
-        self.graph[adj_v].remove(v)
+        rev_edge = next(((n, w) for n, w in self.graph[adj_v] if n == v), None)
+        if rev_edge is None:
+            return
+        self.graph[adj_v].remove(rev_edge)
         self.num_edges -= 1
 
     def _bfs(self, start_v, visited=None):
@@ -44,7 +48,7 @@ class Graph:
                 continue
             print("Visiting Node {}".format(node))
             visited.add(node)
-            for n in self.graph[node]:
+            for n, _ in self.graph[node]:
                 if n in visited:
                     continue
                 que.append(n)
@@ -54,7 +58,7 @@ class Graph:
             visited = set()
         print("Visiting Node {}".format(start_v))
         visited.add(start_v)
-        for n in self.graph[start_v]:
+        for n, _ in self.graph[start_v]:
             if n in visited:
                 continue
             self._dfs(n, visited)
