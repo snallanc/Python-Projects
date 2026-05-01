@@ -1,6 +1,8 @@
 """
 Set is an unordered collection of unique items.
 Supports union, intersection, difference and symmetric difference operations.
+Complexity: add/remove/membership 'in' O(1) avg | space O(n)
+Interview use: duplicate detection, existence checks, graph visited tracking
 """
 
 """

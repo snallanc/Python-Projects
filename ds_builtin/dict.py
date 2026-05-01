@@ -2,6 +2,8 @@
 Dictionary is an equivalent of associative memory data type in python.
 It stores data in the form of key-value pairs indexed by keys though it is UNORDERED.
 The keys have to be immutable for being able to hash them.
+Complexity: get/set/delete O(1) avg | membership 'in' O(1) avg | space O(n)
+Interview use: two-sum, frequency count, grouping, memoization
 """
 
 """

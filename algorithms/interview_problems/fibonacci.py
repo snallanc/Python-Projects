@@ -1,3 +1,7 @@
+# Problem: Compute the nth Fibonacci number
+# Pattern: 1D DP (space-optimized iteration)
+# Recurrence: fib(n) = fib(n-1) + fib(n-2), base: fib(0)=0, fib(1)=1
+# Time: O(n) | Space: O(1)
 def fibonacci(n):
     if n <= 1:
         return n

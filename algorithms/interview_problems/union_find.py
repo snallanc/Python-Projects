@@ -1,3 +1,9 @@
+# Pattern: Union-Find (Disjoint Set Union)
+# Use cases: connected components, cycle detection, Kruskal's MST
+# Optimizations:
+#   - Path compression in find()  → flattens tree, near O(1) per find
+#   - Union by rank in union()    → always attach smaller tree under larger
+# Time: O(α(n)) ≈ O(1) per operation | Space: O(n)
 class UnionFind:
     def __init__(self, node_count):
         self.parent = [i for i in range(node_count)]

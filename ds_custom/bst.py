@@ -1,5 +1,6 @@
 '''
 Binary Search Tree Implementation
+Operations: search/insert/delete O(h) | h=log n balanced, h=n worst case | space O(n)
 '''
 import sys
 import os

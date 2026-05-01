@@ -1,0 +1,96 @@
+================================================================================
+  CODING INTERVIEW QUICK REVISION SUMMARY
+================================================================================
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  INTERVIEW PROBLEMS (algorithms/interview_problems/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+File                            | Problem                        | Pattern               | Data Structure      | Time    | Space
+--------------------------------|--------------------------------|-----------------------|---------------------|---------|------
+fibonacci.py                    | Nth Fibonacci number           | 1D DP (space opt.)    | Two variables       | O(n)    | O(1)
+climbing_steps.py               | Ways to climb n stairs (1/2)   | 1D DP (= Fibonacci)   | Two variables       | O(n)    | O(1)
+house_robber.py                 | Max sum non-adjacent elements  | 1D DP                 | Two variables       | O(n)    | O(1)
+find_duplicates.py              | Any duplicates in list?        | Set membership        | set                 | O(n)    | O(n)
+longest_consequtive_sequence.py | Longest consecutive sequence   | Set + greedy          | set                 | O(n)    | O(n)
+two_sum_sorted.py               | Two numbers summing to target  | Two Pointers          | Two indices         | O(n)    | O(1)
+union_find.py                   | Connected components / cycles  | Union-Find (DSU)      | parent[], rank[]    | O(α(n)) | O(n)
+LRU_MRU_cache.py                | LRU / MRU cache with eviction  | OrderedDict hash map  | OrderedDict         | O(1)    | O(cap)
+
+KEY RECURRENCES:
+  Fibonacci / Climbing Stairs : dp[i] = dp[i-1] + dp[i-2]
+  House Robber                : dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+  Two Sum (sorted)            : l++  if sum < target | r-- if sum > target
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  CUSTOM DATA STRUCTURES (ds_custom/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+File                | Structure            | Key Operations                          | Complexity
+--------------------|----------------------|-----------------------------------------|---------------------------
+heap.py             | Min/Max Heap         | push, pop                               | O(log n) | peek O(1)
+graph.py            | Graph (adj list)     | add/del edge, BFS, DFS                  | BFS/DFS O(V+E)
+LinkedList.py       | Singly Linked List   | insert (tail), search, delete           | insert O(1) | rest O(n)
+bst.py              | Binary Search Tree   | search, insert, delete                  | O(log n) avg | O(n) worst
+stack_list.py       | Stack (list-backed)  | push, pop, peek                         | O(1) all
+stack_linkedlist.py | Stack (LL-backed)    | push, pop, peek                         | O(1) all
+queue_linkedlist.py | Queue (LL-backed)    | enqueue, dequeue                        | O(1) all
+trie_dict.py        | Trie (dict nodes)    | insert, search, startsWith              | O(L) | L=word length
+trie_list.py        | Trie (list nodes)    | insert, search, startsWith              | O(L) | L=word length
+LRU_cache.py        | LRU/MRU Cache        | get, put, evict                         | O(1) all
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  BUILT-IN CONTAINERS (ds_builtin/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Container        | Lookup | Insert | Interview Use Case
+-----------------|--------|--------|----------------------------------------------------
+dict             | O(1)   | O(1)   | Two-sum, memoization, frequency count
+set              | O(1)   | O(1)   | Duplicate check, visited tracking, existence
+list             | O(1)*  | O(1)** | Sliding window, two pointers, DP table
+Counter          | O(1)   | O(1)   | Top-K frequent, anagram check, window frequency
+defaultdict(list)| O(1)   | O(1)   | Group anagrams, build adjacency list
+deque            | O(n)   | O(1)†  | BFS queue, sliding window max
+OrderedDict      | O(1)   | O(1)   | LRU/MRU cache (move_to_end + popitem)
+
+* O(1) by index, O(n) by value search
+** O(1) amortized append; O(n) insert at arbitrary position
+† O(1) append/pop from both ends
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  ALGORITHMS (algorithms/)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+File                     | Algorithm              | Time        | Space   | Key Idea
+-------------------------|------------------------|-------------|---------|---------------------------
+binary_search.py         | Binary Search          | O(log n)    | O(1)    | Halve search space each step
+rotated_binary_search.py | Binary Search (rotated)| O(log n)    | O(1)    | Determine sorted half first
+bfs.py                   | BFS (tree/graph)       | O(V+E)      | O(V)    | Level-order, shortest path
+dfs.py                   | DFS (tree/graph)       | O(V+E)      | O(V)    | Recursive, path problems
+dijkstra.py              | Dijkstra's SP          | O((V+E)logV)| O(V)    | Min-heap + relaxation
+insertion_sort.py        | Insertion Sort         | O(n²)       | O(1)    | Build sorted prefix
+quick_sort.py            | Quick Sort             | O(n log n)* | O(log n)| Partition around pivot
+
+* O(n²) worst case (sorted input), O(n log n) avg
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  PATTERN DECISION TREE
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Need O(1) lookup?                 → dict / set
+  Need to count things?             → Counter
+  Need to group things?             → defaultdict(list)
+  Need fast both-end ops?           → deque
+  Need min/max repeatedly?          → heap (MinHeap/MaxHeap)
+  Need order + O(1) move/evict?     → OrderedDict
+  Sorted array + find pair?         → Two Pointers
+  Subarray/substring condition?     → Sliding Window
+  "How many ways..." ?              → Counting DP
+  "Max/min value..." ?              → Optimization DP
+  Shortest path (unweighted)?       → BFS
+  Shortest path (weighted)?         → Dijkstra's
+  Connected components / cycles?    → Union-Find or DFS
+  Prefix problems on strings?       → Trie
+  Ordered insertions + BST?         → BST
+
+================================================================================

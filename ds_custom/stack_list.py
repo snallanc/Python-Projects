@@ -1,5 +1,6 @@
 """
 Stack implementation in python. Just a thin wrapper around python's list implementation.
+Operations: push O(1) | pop O(1) | peek O(1) | space O(n)
 """
 
 class Stack:

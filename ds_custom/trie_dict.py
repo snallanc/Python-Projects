@@ -1,5 +1,6 @@
 """
 Trie Implementation where each trie node maintains its children in a dictionary:
+Operations: insert O(L) | search O(L) | L = length of word | space O(ALPHABET * N * L)
 """
 
 # Trie node class

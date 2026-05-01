@@ -1,3 +1,7 @@
+# Problem: Check if any duplicates exist in a list
+# Pattern: Set-based existence check
+# Key insight: len(set(items)) < len(items) iff duplicates exist — set discards duplicates
+# Time: O(n) | Space: O(n)
 def duplicates_exist(items):
     return len(items) != len(set(items))
 

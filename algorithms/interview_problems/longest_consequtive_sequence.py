@@ -1,3 +1,8 @@
+# Problem: Find length of longest consecutive sequence in unsorted array (Leetcode 128)
+# Pattern: Set + greedy sequence start detection
+# Key insight: Only start counting when n-1 is NOT in set (n is sequence start)
+#   → each number visited at most once across all while-loop iterations → O(n)
+# Time: O(n) | Space: O(n)
 def find_longest_consecutive_sequence(nums):
     nums_set = set(nums)
     max_seq_len = 0

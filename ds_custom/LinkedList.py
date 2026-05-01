@@ -1,5 +1,6 @@
 """
 Linked List Implementation
+Operations: insert O(1) | search O(n) | delete O(n) | space O(n)
 """
 
 class LinkedListNode:
