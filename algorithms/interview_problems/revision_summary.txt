@@ -14,6 +14,7 @@ house_robber.py                 | Max sum non-adjacent elements  | 1D DP        
 find_duplicates.py              | Any duplicates in list?        | Set membership        | set                 | O(n)    | O(n)
 longest_consequtive_sequence.py | Longest consecutive sequence   | Set + greedy          | set                 | O(n)    | O(n)
 two_sum_sorted.py               | Two numbers summing to target  | Two Pointers          | Two indices         | O(n)    | O(1)
+three_sum.py                    | All unique triplets summing to 0 | Sort + Two Pointers   | Two indices         | O(n²)   | O(1)
 union_find.py                   | Connected components / cycles  | Union-Find (DSU)      | parent[], rank[]    | O(α(n)) | O(n)
 LRU_MRU_cache.py                | LRU / MRU cache with eviction  | OrderedDict hash map  | OrderedDict         | O(1)    | O(cap)
 
@@ -21,6 +22,8 @@ KEY RECURRENCES:
   Fibonacci / Climbing Stairs : dp[i] = dp[i-1] + dp[i-2]
   House Robber                : dp[i] = max(dp[i-1], dp[i-2] + nums[i])
   Two Sum (sorted)            : l++  if sum < target | r-- if sum > target
+  3Sum                        : sort + fix nums[i] + two pointers on rest | nums[i]>0 → break
+                              : skip dup i (i>0 and nums[i]==nums[i-1]) | skip dup p0/p1 after match
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   CUSTOM DATA STRUCTURES (ds_custom/)
