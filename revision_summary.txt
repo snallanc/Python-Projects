@@ -44,6 +44,20 @@ trie_dict.py        | Trie (dict nodes)    | insert, search, startsWith         
 trie_list.py        | Trie (list nodes)    | insert, search, startsWith              | O(L) | L=word length
 LRU_cache.py        | LRU/MRU Cache        | get, put, evict                         | O(1) all
 
+CRITICAL METHODS:
+  Heap (heapq)    : heapq.heappush(h, x)          → push, maintains heap property
+                  : heapq.heappop(h)              → pop smallest; negate values for max-heap
+                  : heapq.heapify(list)           → in-place O(n) build
+                  : heapq.nsmallest/nlargest(k,h) → top-K without full sort
+  LRU/MRU Cache  : od.move_to_end(key, last=True) → move to back (MRU side)
+                  : od.move_to_end(key, last=False)→ move to front (LRU side)
+                  : od.popitem(last=False)         → evict LRU (front)
+                  : od.popitem(last=True)          → evict MRU (back)
+  Union-Find     : find(x) with path compression  → parent[x] = find(parent[x])
+                  : union(a,b) with rank           → attach smaller tree under larger root
+  Graph          : graph[v].append((neighbor, wt)) → weighted adjacency list
+                  : for n, _ in graph[v]           → unpack (neighbor, weight) tuples
+
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   BUILT-IN CONTAINERS (ds_builtin/)
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -61,6 +75,21 @@ OrderedDict      | O(1)   | O(1)   | LRU/MRU cache (move_to_end + popitem)
 * O(1) by index, O(n) by value search
 ** O(1) amortized append; O(n) insert at arbitrary position
 † O(1) append/pop from both ends
+
+CRITICAL METHODS:
+  dict            : d.get(k, default)             → safe lookup without KeyError
+                  : d.setdefault(k, []).append(v) → group items without explicit init check
+                  : d.items()                     → iterate (key, value) pairs
+  set             : s.add(x) / s.discard(x)       → add or safely remove
+                  : a & b, a | b, a - b           → intersection, union, difference (O(min))
+  Counter         : c.most_common(k)              → top-K in O(n log k)
+                  : Counter(a) & Counter(b)        → min-count intersection (anagram check)
+                  : c[key] += 1 / -= 1            → sliding window frequency update
+  defaultdict     : d[k].append(v)               → no KeyError; auto-init on first access
+  deque           : dq.appendleft(x)/popleft()   → O(1) both ends; use for BFS queue
+                  : dq.append(x)/pop()            → right-end ops; max-window monotonic deque
+  OrderedDict     : od.move_to_end(k, last=True)  → mark recently used (LRU/MRU)
+                  : od.popitem(last=False/True)    → evict LRU (False) or MRU (True)
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   ALGORITHMS (algorithms/)
