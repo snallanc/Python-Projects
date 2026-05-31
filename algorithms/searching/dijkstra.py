@@ -1,3 +1,8 @@
+"""
+Dijkstra's Single Source Shortest Path Algorithm for weighted graphs.
+Time Complexity: O((V+E)logV)
+Space Complexity: O(V)
+"""
 import sys
 import os
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../ds_custom'))

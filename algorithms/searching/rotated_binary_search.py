@@ -1,9 +1,11 @@
 def rotated_binary_search(arr, target):
+    if arr is None or len(arr) == 0:
+        return -1
     left, right = 0, len(arr) - 1
     print(f"Searching for {target} in a rotated array {arr}")
 
     while left <= right:
-        mid = left + (right - left)
+        mid = left + (right - left) // 2
         if arr[mid] == target:
             return mid
         if arr[left] <= arr[mid]:
