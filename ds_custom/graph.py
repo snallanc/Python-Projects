@@ -1,3 +1,13 @@
+'''
+Graph Implementation using defaultdict for adjacency list.
+Space Complexity: O(V+E)
+Time Complexity:
+    add/del edge: O(1)
+    BFS: O(V+E)
+    DFS: O(V+E)
+Space Complexity:
+    O(V+E)
+'''
 from collections import defaultdict
 from collections import deque
 

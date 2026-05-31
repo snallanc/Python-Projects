@@ -21,17 +21,19 @@ class Trie:
         return self.root
 
     def insert(self, word):
-        # First check if the word already exists in the trie
-        if self.search(word):
-            print("\tword \"{0}\" already exists".format(word))
-            return
-
-        # If not, insert the word
+        # Traverse the trie and insert the word if it doesn't exist
         cn = self.root
         for c in word:
             if c not in cn.children:
                 cn.children[c] = TrieNode()
             cn = cn.children[c]
+
+        # If the word already exists, print a message and return
+        if cn.isEndOfWord:
+            print("\tword \"{0}\" already exists".format(word))
+            return
+
+        # If the word doesn't exist, set the end of word mark to True
         cn.isEndOfWord = True
 
     def search(self, word):
@@ -53,7 +55,8 @@ class Trie:
             # Append the parent node and the letter to be used later
             path.append((cn, c)) #(parent_node, letter)
             cn = cn.children[c]
-        # If the end of word mark is not set, just return
+
+        # If the end of word mark is not set, word doesn't exist. So just return.
         if not cn.isEndOfWord:
             return False
 
@@ -101,6 +104,7 @@ class Trie:
             cn = cn.children[c]
 
         if cn is not None:
+            print("Find words with prefix \"{}\":".format(prefix))
             self.dfsTrie(cn)
 
 '''
@@ -128,7 +132,6 @@ for w in words:
     print("\tWord \"{0}\" exists in trie: {1}".format(w, T.search(w)))
 divider()
 
-print("Find words with prefix 'mani':")
 T.findWordsWithPrefix("mani")
 divider()
 

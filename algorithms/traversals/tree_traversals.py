@@ -30,7 +30,7 @@ if __name__ == "__main__":
     #        / \
     #       2   3
     #      / \   \
-    #     4   5.  6
+    #     4   5   6
     root = TreeNode(1)
     rl = TreeNode(2)
     root.set_left(rl)

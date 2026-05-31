@@ -4,16 +4,11 @@ Operations: search/insert/delete O(h) | h=log n balanced, h=n worst case | space
 '''
 import sys
 import os
-sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'traversals'))
+
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'algorithms', 'traversals'))
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'ds_custom'))
 from tree_traversals import inorder_traversal, preorder_traversal, postorder_traversal
-
-# Binary Search Tree Node
-class BstNode:
-    def __init__(self, key):
-        self.key = key
-        self.left = None
-        self.right = None
-
+from tree_node import TreeNode as BstNode
 # Binary Search Tree
 class Bst:
     def __init__(self, rootKey):
@@ -32,6 +27,10 @@ class Bst:
         pn, sn = node, node.left
         while sn.right:
             pn, sn = sn, sn.right
+        """
+        If the successor node is not the left child of the given node,
+        we need to detach the successor node from its current parent and attach it to the parent of the given node.
+        """
         if pn != node:
             pn.right = None
         return sn
@@ -146,6 +145,7 @@ class Bst:
         # Set the pointers of the successor node
         if sn is not None:
             print("\t\tSuccessor node {} with key {}".format(sn, sn.key))
+            # If the successor node is not the left child of the given node, we need to detach the successor node from its current parent and attach it to the parent of the given node.
             sn.left = cn.left if sn != cn.left else None
             sn.right = cn.right
 
