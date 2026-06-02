@@ -1,3 +1,11 @@
+"""
+Problem: Find the longest substring without repeating characters
+Pattern: Sliding Window + Dictionary
+Key Insight: Use a dictionary to store the last seen index of each character
+Time Complexity: O(n)
+Space Complexity: O(min(n, m)) where m is the size of the character set
+"""
+
 def find_long_uniq_substr(S):
     if not S:
         return 0, ""

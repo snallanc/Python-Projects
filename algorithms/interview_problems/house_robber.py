@@ -7,11 +7,9 @@
 def house_robber(money=[]):
     if not money:
         return 0
-    if len(money) == 1:
-        return money[0]
-    p1, p2 = money[0], max(money[0], money[1])
-    for i in range(2, len(money)):
-        p1, p2 = p2, max(p2, p1 + money[i])
+    p1, p2 = 0, 0
+    for m in money:
+        p1, p2 = p2, max(p2, p1 + m)
     return p2
 
 # Test code

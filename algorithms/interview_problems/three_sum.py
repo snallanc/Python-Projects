@@ -1,11 +1,15 @@
-# Problem: Find all unique triplets in array that sum to zero (Leetcode 15)
-# Pattern: Sort + Two Pointers
-# Approach: Fix nums[i], then use two pointers on nums[i+1..n-1] to find pair summing to -nums[i]
-# Duplicate handling:
-#   - Outer: skip nums[i] if same as previous (avoids duplicate triplets with same fixed element)
-#   - Inner: after match, skip duplicate p0/p1 values before advancing pointers
-#   - nums[i] > 0 → break: sorted array, all remaining elements positive, zero sum impossible
-# Time: O(n log n + n²) = O(n²) | Space: O(1) excluding output
+"""
+Problem: Find all unique triplets in array that sum to zero (Leetcode 15)
+Pattern: Sort + Two Pointers
+Key Insight: Fix nums[i], then use two pointers on nums[i+1..n-1] to find pair summing to -nums[i]
+Duplicate handling:
+    - Outer: skip nums[i] if same as previous (avoids duplicate triplets with same fixed element)
+    - Inner: after match, skip duplicate p0/p1 values before advancing pointers
+    - nums[i] > 0 → break: sorted array, all remaining elements positive, zero sum impossible
+Time Complexity: O(n log n + n²) = O(n²)
+Space Complexity: O(1) excluding output
+"""
+
 def three_sum_zero(nums=[]):
     if not nums:
         return []

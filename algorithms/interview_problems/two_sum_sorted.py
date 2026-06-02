@@ -1,9 +1,12 @@
-# Problem: Find two numbers in a SORTED array that sum to target (Leetcode 167)
-# Pattern: Two Pointers from opposite ends
-# Key: sum < target → move left pointer right (increase sum)
-#      sum > target → move right pointer left (decrease sum)
-# NOTE: Array MUST be sorted. For unsorted arrays, use hash map O(n) space.
-# Time: O(n) | Space: O(1)
+"""
+Problem: Find two numbers in a SORTED array that sum to target (Leetcode 167)
+Pattern: Two Pointers from opposite ends
+Key Insight: sum < target → move left pointer right (increase sum)
+    sum > target → move right pointer left (decrease sum)
+NOTE: Array MUST be sorted. For unsorted arrays, use hash map O(n) space.
+Time Complexity: O(n)
+Space Complexity: O(1)
+"""
 def two_sum_sorted(nums=[], target=0):
     if not nums:
         return []

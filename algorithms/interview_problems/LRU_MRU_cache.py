@@ -9,6 +9,13 @@ from collections import OrderedDict
 #
 # Memory aid: last=True → pops the *last* inserted/accessed → MRU
 
+"""
+Problem: Implement an LRU/MRU cache
+Pattern: OrderedDict
+Key Insight: Use an OrderedDict to store the cache items and use the move_to_end method to move the most recently used item to the end of the dict
+Time Complexity: O(1) for get and put
+Space Complexity: O(n) for the cache
+""" 
 class Cache:
     def __init__(self, cache_size, mru=False):
         self.cache = OrderedDict()
