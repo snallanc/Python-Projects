@@ -1,0 +1,3 @@
+#!/usr/bin/env sh
+
+python scripts/check_revision_coverage.py

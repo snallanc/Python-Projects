@@ -1,4 +1,9 @@
-
+"""
+Problem: Given a string s and an integer k, remove all adjacent duplicates in the string such that the length of the duplicate group is exactly k. The removal should be done repeatedly until no more adjacent duplicates of length k can be found.
+Pattern: Stack-based string manipulation
+Key insight: Use a stack to keep track of characters and their counts. When the count reaches k, pop the character from the stack.
+Time: O(n) | Space: O(n)
+"""
 def remove_adjacent_dup_chars(s: str, k: int) -> str:
     if k == 0:
         return s
@@ -51,4 +56,4 @@ if __name__ == "__main__":
     test_cases = {"deeedbbcccbdaa": 3, "pbbcggttciiippooaais": 2, "abcd": 2, "aabbcc": 2, "bbccdd": 3, "": 2, "b": 1, "a": 0}
     for s, k in test_cases.items():
         #print(f"Input: {s}, K: {k}, Output: {remove_adjacent_dup_chars(str(s), k)}") 
-        print(f"Input: {s}, K: {k}, Output: {remove_adjacent_dup_chars_stack(str(s), k)}")
+        print(f"Input: {s}, K: {k}, Output: {remove_adjacent_dup_chars_stack(s, k)}")
