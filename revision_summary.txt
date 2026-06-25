@@ -20,6 +20,7 @@ stack_string/remove_duplicate_adjacent_chars.py | Remove adjacent duplicates (k)
 prefix_sum/subarray_sum_multiple_of_k.py | Subarray sum multiple of k     | Prefix sum + modulo   | dict (remainder map)| O(n)    | O(min(n,k))
 bit_manipulation/reverse_endian.py      | Reverse endianness (32-bit)    | Bit manipulation      | bit masks/shifts    | O(1)    | O(1)
 union_find/union_find.py                | Connected components / cycles  | Union-Find (DSU)      | parent[], rank[]    | O(α(n)) | O(n)
+array/product_array_self.py             | Product of array except self   | Prefix + suffix pass  | Output array        | O(n)    | O(1)
 design/LRU_MRU_cache.py                 | LRU / MRU cache with eviction  | OrderedDict hash map  | OrderedDict         | O(1)    | O(cap)
 
 KEY RECURRENCES:
@@ -33,8 +34,11 @@ KEY RECURRENCES:
                               : rem = prefix_sum % k (or prefix_sum when k == 0)
   Remove Adjacent Dups (k)    : push/increment (char,count); pop when count == k
   Reverse Endian (32-bit)     : swap bytes with masks/shifts: b0<->b3, b1<->b2
+  Product Except Self         : pass1 (right-to-left): res[i] = suffix product before i
+                              : pass2 (left-to-right): res[i] *= prefix product before i
 
 INTERVIEW PATTERN COVERAGE (by folder):
+  interview_problems/array            : 1 problem
   interview_problems/dp               : 3 problems
   interview_problems/hashing_set      : 2 problems
   interview_problems/two_pointers     : 2 problems
@@ -152,7 +156,7 @@ tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visi
 
   Last verified: 2026-06-22
 
-  algorithms/interview_problems : 13/13 covered
+  algorithms/interview_problems : 14/14 covered
   algorithms/searching          : 5/5 covered
   algorithms/sorting            : 2/2 covered
   algorithms/traversals         : 1/1 covered
