@@ -11,10 +11,12 @@ File                                    | Problem                        | Patte
 dp/fibonacci.py                         | Nth Fibonacci number           | 1D DP (space opt.)    | Two variables       | O(n)    | O(1)
 dp/climbing_steps.py                    | Ways to climb n stairs (1/2)   | 1D DP (= Fibonacci)   | Two variables       | O(n)    | O(1)
 dp/house_robber.py                      | Max sum non-adjacent elements  | 1D DP                 | Two variables       | O(n)    | O(1)
+array/two_sum_unsorted.py               | Two numbers summing to target  | Hash map lookup       | dict (value->index) | O(n)    | O(n)
 hashing_set/find_duplicates.py          | Any duplicates in list?        | Set membership        | set                 | O(n)    | O(n)
 hashing_set/longest_consecutive_sequence.py | Longest consecutive sequence   | Set + greedy          | set                 | O(n)    | O(n)
 two_pointers/two_sum_sorted.py          | Two numbers summing to target  | Two Pointers          | Two indices         | O(n)    | O(1)
 two_pointers/three_sum.py               | All unique triplets summing to 0 | Sort + Two Pointers   | Two indices         | O(n²)   | O(1)
+two_pointers/container_with_max_area.py | Container with most water      | Two Pointers          | Two indices         | O(n)    | O(1)
 sliding_window/longest_uniq_substr.py   | Longest substr without repeats | Sliding Window + dict | dict + two indices  | O(n)    | O(1)
 stack_string/remove_duplicate_adjacent_chars.py | Remove adjacent duplicates (k) | Stack run-compression | stack[(char,count)] | O(n)    | O(n)
 prefix_sum/subarray_sum_multiple_of_k.py | Subarray sum multiple of k     | Prefix sum + modulo   | dict (remainder map)| O(n)    | O(min(n,k))
@@ -26,9 +28,11 @@ design/LRU_MRU_cache.py                 | LRU / MRU cache with eviction  | Order
 KEY RECURRENCES:
   Fibonacci / Climbing Stairs : dp[i] = dp[i-1] + dp[i-2]
   House Robber                : dp[i] = max(dp[i-1], dp[i-2] + nums[i])
+  Two Sum (unsorted)          : for n at i, check if (target-n) in seen; else seen[n] = i
   Two Sum (sorted)            : l++  if sum < target | r-- if sum > target
   3Sum                        : sort + fix nums[i] + two pointers on rest | nums[i]>0 → break
                               : skip dup i (i>0 and nums[i]==nums[i-1]) | skip dup p0/p1 after match
+  Container With Most Water   : area = min(h[l], h[r]) * (r-l); move pointer at shorter line
   Longest Unique Substr       : if c in seen and seen[c] >= l: l = seen[c]+1 | seen[c] = r
   Subarray Sum Multiple of k  : if rem seen before and idx-prev_idx >= 2 => valid subarray
                               : rem = prefix_sum % k (or prefix_sum when k == 0)
@@ -38,10 +42,10 @@ KEY RECURRENCES:
                               : pass2 (left-to-right): res[i] *= prefix product before i
 
 INTERVIEW PATTERN COVERAGE (by folder):
-  interview_problems/array            : 1 problem
+  interview_problems/array            : 2 problems
   interview_problems/dp               : 3 problems
   interview_problems/hashing_set      : 2 problems
-  interview_problems/two_pointers     : 2 problems
+  interview_problems/two_pointers     : 3 problems
   interview_problems/sliding_window   : 1 problem
   interview_problems/stack_string     : 1 problem
   interview_problems/prefix_sum       : 1 problem
@@ -154,9 +158,9 @@ tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visi
   COVERAGE CHECKLIST
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Last verified: 2026-06-22
+  Last verified: 2026-06-25
 
-  algorithms/interview_problems : 14/14 covered
+  algorithms/interview_problems : 16/16 covered
   algorithms/searching          : 5/5 covered
   algorithms/sorting            : 2/2 covered
   algorithms/traversals         : 1/1 covered
