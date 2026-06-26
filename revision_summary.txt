@@ -21,6 +21,7 @@ two_pointers/trap_water.py              | Trapping rain water            | Two P
 sliding_window/longest_uniq_substr.py   | Longest substr without repeats | Sliding Window + dict | dict + two indices  | O(n)    | O(1)
 stack/remove_duplicate_adjacent_chars.py | Remove adjacent duplicates (k) | Stack run-compression | stack[(char,count)] | O(n)    | O(n)
 stack/daily_next_max_temperature.py     | Days until warmer temperature  | Monotonic Stack       | stack[(idx,temp)]   | O(n)    | O(n)
+stack/validate_brackets.py              | Validate matching brackets      | Stack pair matching   | stack[list[str]]    | O(n)    | O(n)
 prefix_sum/subarray_sum_multiple_of_k.py | Subarray sum multiple of k     | Prefix sum + modulo   | dict (remainder map)| O(n)    | O(min(n,k))
 bit_manipulation/reverse_endian.py      | Reverse endianness (32-bit)    | Bit manipulation      | bit masks/shifts    | O(1)    | O(1)
 union_find/union_find.py                | Connected components / cycles  | Union-Find (DSU)      | parent[], rank[]    | O(α(n)) | O(n)
@@ -38,6 +39,7 @@ KEY RECURRENCES:
   Trapping Rain Water         : move side with smaller height; add bounded water using left_max/right_max
   Longest Unique Substr       : if c in seen and seen[c] >= l: l = seen[c]+1 | seen[c] = r
   Daily Temperatures          : monotonic decreasing stack of unresolved indices; pop on warmer day
+  Validate Brackets           : push opens; on close, top must be matching opener; stack empty at end
   Subarray Sum Multiple of k  : if rem seen before and idx-prev_idx >= 2 => valid subarray
                               : rem = prefix_sum % k (or prefix_sum when k == 0)
   Remove Adjacent Dups (k)    : push/increment (char,count); pop when count == k
@@ -51,7 +53,7 @@ INTERVIEW PATTERN COVERAGE (by folder):
   interview_problems/hashing_set      : 2 problems
   interview_problems/two_pointers     : 4 problems
   interview_problems/sliding_window   : 1 problem
-  interview_problems/stack            : 2 problems
+  interview_problems/stack            : 3 problems
   interview_problems/prefix_sum       : 1 problem
   interview_problems/bit_manipulation : 1 problem
   interview_problems/union_find       : 1 problem
@@ -164,7 +166,7 @@ tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visi
 
   Last verified: 2026-06-26
 
-  algorithms/interview_problems : 18/18 covered
+  algorithms/interview_problems : 19/19 covered
   algorithms/searching          : 5/5 covered
   algorithms/sorting            : 2/2 covered
   algorithms/traversals         : 1/1 covered
