@@ -17,8 +17,10 @@ hashing_set/longest_consecutive_sequence.py | Longest consecutive sequence   | S
 two_pointers/two_sum_sorted.py          | Two numbers summing to target  | Two Pointers          | Two indices         | O(n)    | O(1)
 two_pointers/three_sum.py               | All unique triplets summing to 0 | Sort + Two Pointers   | Two indices         | O(n²)   | O(1)
 two_pointers/container_with_max_area.py | Container with most water      | Two Pointers          | Two indices         | O(n)    | O(1)
+two_pointers/trap_water.py              | Trapping rain water            | Two Pointers          | Two indices + maxes | O(n)    | O(1)
 sliding_window/longest_uniq_substr.py   | Longest substr without repeats | Sliding Window + dict | dict + two indices  | O(n)    | O(1)
-stack_string/remove_duplicate_adjacent_chars.py | Remove adjacent duplicates (k) | Stack run-compression | stack[(char,count)] | O(n)    | O(n)
+stack/remove_duplicate_adjacent_chars.py | Remove adjacent duplicates (k) | Stack run-compression | stack[(char,count)] | O(n)    | O(n)
+stack/daily_next_max_temperature.py     | Days until warmer temperature  | Monotonic Stack       | stack[(idx,temp)]   | O(n)    | O(n)
 prefix_sum/subarray_sum_multiple_of_k.py | Subarray sum multiple of k     | Prefix sum + modulo   | dict (remainder map)| O(n)    | O(min(n,k))
 bit_manipulation/reverse_endian.py      | Reverse endianness (32-bit)    | Bit manipulation      | bit masks/shifts    | O(1)    | O(1)
 union_find/union_find.py                | Connected components / cycles  | Union-Find (DSU)      | parent[], rank[]    | O(α(n)) | O(n)
@@ -33,7 +35,9 @@ KEY RECURRENCES:
   3Sum                        : sort + fix nums[i] + two pointers on rest | nums[i]>0 → break
                               : skip dup i (i>0 and nums[i]==nums[i-1]) | skip dup p0/p1 after match
   Container With Most Water   : area = min(h[l], h[r]) * (r-l); move pointer at shorter line
+  Trapping Rain Water         : move side with smaller height; add bounded water using left_max/right_max
   Longest Unique Substr       : if c in seen and seen[c] >= l: l = seen[c]+1 | seen[c] = r
+  Daily Temperatures          : monotonic decreasing stack of unresolved indices; pop on warmer day
   Subarray Sum Multiple of k  : if rem seen before and idx-prev_idx >= 2 => valid subarray
                               : rem = prefix_sum % k (or prefix_sum when k == 0)
   Remove Adjacent Dups (k)    : push/increment (char,count); pop when count == k
@@ -45,9 +49,9 @@ INTERVIEW PATTERN COVERAGE (by folder):
   interview_problems/array            : 2 problems
   interview_problems/dp               : 3 problems
   interview_problems/hashing_set      : 2 problems
-  interview_problems/two_pointers     : 3 problems
+  interview_problems/two_pointers     : 4 problems
   interview_problems/sliding_window   : 1 problem
-  interview_problems/stack_string     : 1 problem
+  interview_problems/stack            : 2 problems
   interview_problems/prefix_sum       : 1 problem
   interview_problems/bit_manipulation : 1 problem
   interview_problems/union_find       : 1 problem
@@ -158,9 +162,9 @@ tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visi
   COVERAGE CHECKLIST
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Last verified: 2026-06-25
+  Last verified: 2026-06-26
 
-  algorithms/interview_problems : 16/16 covered
+  algorithms/interview_problems : 18/18 covered
   algorithms/searching          : 5/5 covered
   algorithms/sorting            : 2/2 covered
   algorithms/traversals         : 1/1 covered
