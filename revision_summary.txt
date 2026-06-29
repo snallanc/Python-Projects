@@ -26,6 +26,7 @@ prefix_sum/subarray_sum_multiple_of_k.py | Subarray sum multiple of k     | Pref
 bit_manipulation/reverse_endian.py      | Reverse endianness (32-bit)    | Bit manipulation      | bit masks/shifts    | O(1)    | O(1)
 union_find/union_find.py                | Connected components / cycles  | Union-Find (DSU)      | parent[], rank[]    | O(α(n)) | O(n)
 array/product_array_self.py             | Product of array except self   | Prefix + suffix pass  | Output array        | O(n)    | O(1)
+heap/max_stock_profit.py                | Max stock profit (multi-trade) | Min-heap + greedy     | min-heap            | O(nlogn)| O(n)
 design/LRU_MRU_cache.py                 | LRU / MRU cache with eviction  | OrderedDict hash map  | OrderedDict         | O(1)    | O(cap)
 
 KEY RECURRENCES:
@@ -46,6 +47,8 @@ KEY RECURRENCES:
   Reverse Endian (32-bit)     : swap bytes with masks/shifts: b0<->b3, b1<->b2
   Product Except Self         : pass1 (right-to-left): res[i] = suffix product before i
                               : pass2 (left-to-right): res[i] *= prefix product before i
+  Max Stock Profit            : optimized: sum of positive day-to-day gains
+                              : profit += max(0, prices[i] - prices[i-1])
 
 INTERVIEW PATTERN COVERAGE (by folder):
   interview_problems/array            : 2 problems
@@ -57,6 +60,7 @@ INTERVIEW PATTERN COVERAGE (by folder):
   interview_problems/prefix_sum       : 1 problem
   interview_problems/bit_manipulation : 1 problem
   interview_problems/union_find       : 1 problem
+  interview_problems/heap             : 1 problem
   interview_problems/design           : 1 problem
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -164,9 +168,9 @@ tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visi
   COVERAGE CHECKLIST
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Last verified: 2026-06-26
+  Last verified: 2026-06-29
 
-  algorithms/interview_problems : 19/19 covered
+  algorithms/interview_problems : 20/20 covered
   algorithms/searching          : 5/5 covered
   algorithms/sorting            : 2/2 covered
   algorithms/traversals         : 1/1 covered
