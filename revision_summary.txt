@@ -133,7 +133,7 @@ CRITICAL METHODS:
 
 File                     | Algorithm              | Time        | Space   | Key Idea
 -------------------------|------------------------|-------------|---------|---------------------------
-binary_search.py         | Binary Search          | O(log n)    | O(1)    | Halve search space each step
+binary_search.py         | Binary Search variants | O(log n)*   | O(1)    | Classic index search + lower/upper bound + 2D matrix flattening
 rotated_binary_search.py | Binary Search (rotated)| O(log n)    | O(1)    | Determine sorted half first
 bfs.py                   | BFS (tree/graph)       | O(V+E)      | O(V)    | Level-order, shortest path
 dfs.py                   | DFS (tree/graph)       | O(V+E)      | O(V)    | Recursive, path problems
@@ -142,7 +142,7 @@ insertion_sort.py        | Insertion Sort         | O(n²)       | O(1)    | Bui
 quick_sort.py            | Quick Sort             | O(n log n)* | O(log n)| Partition around pivot
 tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visit order depends on use case
 
-* O(n²) worst case (sorted input), O(n log n) avg
+* `binary_search.py` also includes matrix search in O(log(m*n)); quick_sort is O(n²) worst case and O(n log n) avg
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
   PATTERN DECISION TREE
@@ -168,7 +168,7 @@ tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visi
   COVERAGE CHECKLIST
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Last verified: 2026-06-29
+  Last verified: 2026-06-30
 
   algorithms/interview_problems : 20/20 covered
   algorithms/searching          : 5/5 covered
