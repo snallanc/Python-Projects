@@ -29,7 +29,8 @@ def productExceptSelf(nums: list[int]) -> list[int]:
 
 """Test code"""
 if __name__ == "__main__":
-    nums_list = [[1, 2, 3, 4],                 [0, 1, 2, 3],
+    nums_list = [[1, 2, 3, 4],
+                 [0, 1, 2, 3],
                  [1, 0, 3, 4],
                  [1, 2, 0, 4],
                  [1, 2, 3, 0],

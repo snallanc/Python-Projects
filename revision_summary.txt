@@ -27,6 +27,7 @@ bit_manipulation/reverse_endian.py      | Reverse endianness (32-bit)    | Bit m
 union_find/union_find.py                | Connected components / cycles  | Union-Find (DSU)      | parent[], rank[]    | O(α(n)) | O(n)
 array/product_array_self.py             | Product of array except self   | Prefix + suffix pass  | Output array        | O(n)    | O(1)
 heap/max_stock_profit.py                | Max stock profit (multi-trade) | Min-heap + greedy     | min-heap            | O(nlogn)| O(n)
+binary_search/koko_eating_banana.py     | Min eating speed to finish in h hours | Binary search on answer space | speed range [1..max] | O(n log m) | O(1)
 design/LRU_MRU_cache.py                 | LRU / MRU cache with eviction  | OrderedDict hash map  | OrderedDict         | O(1)    | O(cap)
 
 KEY RECURRENCES:
@@ -49,9 +50,12 @@ KEY RECURRENCES:
                               : pass2 (left-to-right): res[i] *= prefix product before i
   Max Stock Profit            : optimized: sum of positive day-to-day gains
                               : profit += max(0, prices[i] - prices[i-1])
+  Koko Eating Bananas         : binary search on speed [1..max(piles)]; check ceil(p/k) summed over piles <= h
+                              : hr_count > h → min_speed = mid+1; else max_speed = mid
 
 INTERVIEW PATTERN COVERAGE (by folder):
   interview_problems/array            : 2 problems
+  interview_problems/binary_search    : 1 problem
   interview_problems/dp               : 3 problems
   interview_problems/hashing_set      : 2 problems
   interview_problems/two_pointers     : 4 problems
@@ -155,6 +159,7 @@ tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visi
   Need min/max repeatedly?          → heap (MinHeap/MaxHeap)
   Need order + O(1) move/evict?     → OrderedDict
   Sorted array + find pair?         → Two Pointers
+  Minimize/maximize over a feasible condition? → Binary Search on answer space
   Subarray/substring condition?     → Sliding Window
   "How many ways..." ?              → Counting DP
   "Max/min value..." ?              → Optimization DP
@@ -168,9 +173,9 @@ tree_traversals.py       | In/Pre/Postorder DFS   | O(n)        | O(h)    | Visi
   COVERAGE CHECKLIST
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-  Last verified: 2026-06-30
+  Last verified: 2026-07-02
 
-  algorithms/interview_problems : 20/20 covered
+  algorithms/interview_problems : 21/21 covered
   algorithms/searching          : 5/5 covered
   algorithms/sorting            : 2/2 covered
   algorithms/traversals         : 1/1 covered
